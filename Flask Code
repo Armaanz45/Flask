@@ -1,0 +1,47 @@
+from flask import Flask,request,render_template
+
+app2 = Flask(__name__)
+
+@app2.route("/")
+def welcome():
+    return render_template("index.html")
+
+@app2.route("/items",methods=["POST"])
+
+def items():
+    if(request.method=="POST"):
+        
+        item1=int(request.form["item1"])
+        item2=int(request.form["item2"])
+        item3=int(request.form["item3"])
+        item4=int(request.form["item4"])
+        
+        total_cost=item1 + item2 + item3 + item4
+       
+
+        if total_cost <= 1000:
+            total_cost= int(total_cost - total_cost*0.10)
+        elif total_cost > 1000 or total_cost <= 2000:
+            total_cost= int(total_cost - total_cost * 0.20)
+        else:
+            total_cost= int(total_cost-total_cost*0.30)
+
+
+        
+
+        
+        return render_template("result.html",result=total_cost)
+
+
+
+        
+
+
+     
+
+        
+
+
+
+if __name__=="__main__":
+    app2.run(host="0.0.0.0",port=5001)
